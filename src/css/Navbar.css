@@ -1,0 +1,96 @@
+/* Navbar Container */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 10vh;
+  padding: 0 20px;
+}
+
+/* Logo Element */
+.logo {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.logo-image {
+  height: 50px;
+  width: auto;
+  margin: auto;
+  cursor: pointer;
+}
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: #333; /* Change the color as needed */
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+/* Navbar Items Container */
+.navbar-items {
+  display: flex;
+  gap: 5em;
+  margin-left: 15em;
+}
+
+/* Navbar Links */
+.navbar-items a {
+  text-decoration: none;
+  font-size: 18px;
+}
+
+/* Mobile Menu Open State */
+.navbar-items.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  background-color: white;
+  z-index: 1;
+}
+
+.navbar-items.open a {
+  padding: 10px 0;
+}
+
+.footer-container {
+  background-color: #072c47;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10vw;
+}
+.footer-container .logo-image {
+  height: 6vh;
+  opacity: 0.5;
+  cursor: pointer;
+}
+.footer-container .logo-image:hover {
+  opacity: 0.9;
+}
+.tabs-and-allrights-reserved {
+}
+
+.footer-container ul {
+  list-style-type: none;
+}
+.footer-container ul li {
+  margin: 5px;
+}
+.footer-nav-links {
+  display: flex;
+  justify-content: space-around;
+}

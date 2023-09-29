@@ -1,0 +1,39 @@
+.games-container {
+  padding-left: 10vw;
+  padding-right: 10vw;
+}
+
+.buttons-container {
+  height: 8vh;
+  border-bottom: solid 1px #ccc;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1em;
+}
+
+.buttons-container button {
+  background-color: #f6ab3c;
+  height: 4em;
+  width: 16em;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+}
+.game-cards-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1.2em;
+  margin-top: 2em;
+}
+
+.game-card-container {
+  cursor: pointer;
+  color: #072c47;
+  width: 250px !important;
+}
+.game-card-image {
+  width: 200px !important;
+  height: 135px;
+}
