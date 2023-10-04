@@ -4,15 +4,16 @@ import { Games } from "./components/Games";
 import { Navbar } from "./components/Navbar";
 import { Home } from "./components/Home";
 import { FreeRobux } from "./components/FreeRobux";
-import { SubmitGame } from "./css/SubmitGame";
+import { SubmitGame } from "./components/SubmitGame";
 import { Game } from "./components/Game";
 import { Footer } from "./components/Footer";
-
+import { FloatingNavbar } from "./components/FloatingNavbar";
 function App() {
   return (
     <Router>
       <div>
         <Navbar />
+        <FloatingNavbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/games" element={<Games />} />

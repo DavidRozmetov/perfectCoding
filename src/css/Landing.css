@@ -97,3 +97,44 @@
 
   /* Adjust other styles for smaller screens as needed */
 }
+
+@media screen and (max-width: 420px) {
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    height: max-content;
+    margin: auto;
+  }
+
+  .left-grid {
+    margin: auto;
+    width: 92vw;
+    display: block;
+  }
+
+  .left-grid h1 {
+    font-size: 2em;
+  }
+
+  .text-body {
+    width: 90vw;
+    font-size: 1em;
+  }
+
+  .cta-button {
+    font-size: 1.2em;
+    width: auto;
+    margin: auto;
+  }
+  .right-grid {
+    width: 100vw;
+    overflow: hidden;
+  }
+  .right-grid img {
+    width: 110vw;
+    margin: auto;
+  }
+}

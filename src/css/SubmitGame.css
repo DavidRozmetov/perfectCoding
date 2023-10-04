@@ -64,3 +64,40 @@
   font-weight: 900;
   border-radius: 0.2em;
 }
+
+@media screen and (max-width: 420px) {
+  .contact-via-email-container {
+    display: grid;
+    width: 90vw;
+    max-height: none;
+    height: auto;
+    padding: 4vw;
+    padding-bottom: 0;
+    color: #f6ab3c;
+  }
+
+  .contact-via-email-container h2 {
+    text-align: left;
+    font-size: 1.6em;
+    font-weight: 400;
+    color: #f6ab3c;
+    text-align: center;
+  }
+
+  .contact-via-email-container .form-send-email {
+    margin: 0;
+  }
+
+  .contact-via-email-container .form-input {
+    height: fit-content;
+  }
+
+  .contact-via-email-container .send-email-button {
+    width: 50vw;
+    height: 2.8em;
+    margin-left: 20vw;
+    background-color: #f6ab3c;
+    color: white;
+    border: none;
+  }
+}

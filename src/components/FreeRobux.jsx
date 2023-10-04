@@ -6,7 +6,7 @@ export const FreeRobux = () => {
       <h2>
         How to Get Free <span className="span-yellow">60 Robux</span>
       </h2>
-      <h3>
+      <h3 className="sub-title">
         When we send you the Robux, it will take{" "}
         <span className="span-yellow">7-10 days</span> for you to receive it
       </h3>
@@ -31,9 +31,8 @@ export const FreeRobux = () => {
           className="youtube-video"
           src="https://www.youtube.com/embed/_DtTTLuBB88?si=i3y7LCivQiFzMiMU"
           title="YouTube video player"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         ></iframe>
       </div>
 

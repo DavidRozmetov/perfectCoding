@@ -21,20 +21,6 @@
   margin: auto;
   cursor: pointer;
 }
-/* Mobile Menu Toggle Button */
-.mobile-menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.bar {
-  width: 25px;
-  height: 3px;
-  background-color: #333; /* Change the color as needed */
-  margin: 3px 0;
-  transition: 0.4s;
-}
 
 /* Navbar Items Container */
 .navbar-items {
@@ -93,4 +79,39 @@
 .footer-nav-links {
   display: flex;
   justify-content: space-around;
+}
+@media screen and (max-width: 420px) {
+  .navbar {
+    width: 100vw;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .navbar-items {
+    display: none;
+  }
+  .footer-container {
+    flex-direction: column;
+    text-align: left;
+    padding: 5vw;
+  }
+  .footer-container .logo-image {
+    display: none;
+  }
+  .footer-nav-links {
+    display: none;
+  }
+  .footer-container ul {
+    width: 90vw;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    font: 1em sans-serif;
+  }
+  .allrights-reserved {
+    font-size: 0.8em;
+    height: 3.2em;
+    margin: auto;
+  }
 }

@@ -1,0 +1,101 @@
+.navbar-container {
+  display: none;
+}
+
+@media screen and (max-width: 420px) {
+  .navbar-container {
+    display: block;
+    position: fixed;
+    bottom: 2em;
+    right: 1em;
+  }
+  .navbar-button {
+    background-color: white;
+    width: 3em;
+    height: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    border: solid 2px #072c47;
+    color: #072c47;
+    font-size: 1.4em;
+    z-index: 10;
+  }
+  .navbar-button:hover,
+  .navbar-button:active {
+    background-color: #072c47;
+    color: white;
+    border: solid 2px white;
+  }
+
+  .navbar-toggle-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  .navbar-toggle-button:hover,
+  .navbar-toggle-button:active {
+    background-color: #072c47;
+    color: white;
+    border: solid 2px white;
+  }
+  .btn-red {
+    color: red;
+    border-color: #ff0000;
+  }
+  .btn-red:hover,
+  .btn-red:active {
+    background-color: #ff0000;
+  }
+
+  .navbar-background {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1;
+  }
+
+  .navbar-menu-container {
+    position: absolute;
+    bottom: 5em;
+    display: grid;
+    gap: 0.5em;
+    right: 0.5em;
+    animation-name: fadeInGrid;
+    animation-fill-mode: forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+  }
+  .navbar-menu-container .navbar-button {
+    height: 2.6em;
+    width: 2.6em;
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeInGrid {
+    from {
+      gap: -6em;
+    }
+    to {
+      gap: 1em;
+    }
+  }
+}
