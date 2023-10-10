@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/Navbar.css"; // Import your CSS file for styling
+import "../css/Navbar.css";
 import { Logo } from "./Logo";
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,6 +25,7 @@ export const Navbar = () => {
       <div className={`navbar-items ${menuOpen ? "open" : ""}`}>
         <Link to="/games">Games</Link>
         <Link to="/free_robux">Free Robux</Link>
+        <Link to="/students">Students</Link>
       </div>
     </nav>
   );

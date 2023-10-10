@@ -1,0 +1,31 @@
+.students-container {
+  min-height: 80vh;
+  height: fit-content;
+}
+h2 {
+  text-align: center;
+  color: #f6ab3c;
+}
+a {
+  text-decoration: none;
+}
+.game-cards-container {
+  padding: 10vw;
+  width: 80vw;
+  padding-top: 0;
+
+  display: grid;
+  gap: 3em;
+}
+.game-card-container {
+  max-width: 200px;
+  height: fit-content;
+  text-align: center;
+}
+
+@media screen and (max-width: 420px) {
+  h2 {
+    width: 80vw;
+    margin: auto;
+  }
+}

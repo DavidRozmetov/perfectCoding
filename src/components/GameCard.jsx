@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const GameCard = ({ CardTitle, ImageSource, GameId }) => {
+const GameCard = ({ CardTitle, ImageSource, GameId, title }) => {
   return (
     <div className="game-card-container">
-      <Link to={`../games/${GameId}`}>
+      <Link to={`../games/${GameId}${title ? "?title=" + title : ""}`}>
         <div
           className="game-card-image"
           style={{

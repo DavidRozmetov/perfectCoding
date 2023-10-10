@@ -5,7 +5,7 @@ import { IoGameController } from "react-icons/io5";
 import { SiRoblox } from "react-icons/si";
 import { BiLogoTelegram } from "react-icons/bi";
 import { useState } from "react";
-
+import { PiStudentFill } from "react-icons/pi";
 export const FloatingNavbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -36,6 +36,9 @@ export const FloatingNavbar = () => {
         <div className="navbar-menu-container">
           <a href="/games" className="navbar-button">
             <IoGameController />
+          </a>
+          <a href="/students" className="navbar-button">
+            <PiStudentFill />
           </a>
           <a href="/free_robux" className="navbar-button">
             <SiRoblox />

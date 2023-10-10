@@ -121,6 +121,9 @@
     border: none;
   }
 
+  h2 {
+    height: 3em;
+  }
   .text-heading {
     text-align: justify;
     font-weight: 300;

@@ -1,16 +1,40 @@
 .game-container {
   display: flex;
-  justify-content: center;
-  height: 85vh;
+  flex-direction: column;
+  justify-content: baseline;
+  min-height: 80vh;
+
+  width: 80vw;
+  margin: auto;
 }
 
 .game-box {
-  height: 100%;
-  width: 100%;
+  width: 50vw;
+  min-height: 50vh;
+  padding: 0;
+  flex-grow: 1;
+  margin: auto;
 }
-
+.button-scratch button {
+  background-color: #f6ab3c;
+  height: 4em;
+  width: 16em;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 1em;
+}
 @media screen and (max-width: 420px) {
   .game-container {
-    height: 74vh;
+    width: 100%;
+    height: auto !important;
+    margin: 0;
+  }
+  .game-box {
+    width: 100vw;
+    height: auto;
   }
 }

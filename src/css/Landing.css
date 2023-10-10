@@ -42,6 +42,7 @@
 .cta-button {
   background-color: #23c17c; /* Button background color */
   color: white;
+  text-decoration: none;
   border: none;
   padding: 10px 20px;
   font-size: 18px;
@@ -51,8 +52,10 @@
   width: 70%;
   margin-left: 10%;
   height: 2.8em;
-  margin-top: 1em;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .cta-button:hover {

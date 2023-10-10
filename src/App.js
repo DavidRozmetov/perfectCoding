@@ -8,6 +8,7 @@ import { SubmitGame } from "./components/SubmitGame";
 import { Game } from "./components/Game";
 import { Footer } from "./components/Footer";
 import { FloatingNavbar } from "./components/FloatingNavbar";
+import { Students } from "./components/Students";
 function App() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function App() {
           <Route path="/free_robux" element={<FreeRobux />} />
           <Route path="/submit" element={<SubmitGame />} />
           <Route path="/games/:gameId" element={<Game />} />
+          <Route path="/students" element={<Students />} />
         </Routes>
 
         <Footer />

@@ -15,7 +15,9 @@ export const Landing = () => {
           potential and make fun and <strong>interactive computer games</strong>
           . Join us and elevate your child's education to new heights.
         </p>
-        <button className="cta-button">Book a Free Trial Class</button>
+        <a className="cta-button" href="https://t.me/davranbekr">
+          Book a Free Trial Class
+        </a>
       </div>
       <div className="right-grid">
         <img src={LandingCoverPhoto} alt="Visual Patterns" />
