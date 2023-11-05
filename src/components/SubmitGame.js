@@ -1,62 +1,70 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import "../css/SubmitGame.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { FbAdd, FbAddWithoutUID, readData } from "../firebase/FireStore";
+import { authentication } from "../firebase/Auth";
+import { onAuthStateChanged } from "firebase/auth";
+
 export const SubmitGame = () => {
-  const form = useRef(null);
+  const [name, setName] = useState("");
+  const [id, setId] = useState("");
+  const [userData, setUserData] = useState({});
+  const [author, setAuthor] = useState("");
+  const date = new Date();
+
+  useEffect(() => {
+    onAuthStateChanged(authentication, (user) => {
+      // const author = authentication.currentUser.uid;
+      if (user) {
+        setAuthor(user.uid);
+        readData("users", user.uid).then((res) => {
+          setUserData(res);
+        });
+      }
+    });
+  }, []);
 
   const sendEmail = (e) => {
     e.preventDefault();
 
-    if (form.current) {
-      const messageTextarea = form.current.querySelector('[name="message"]');
-      const userNameInput = form.current.querySelector('[name="user_name"]');
-      const userEmailInput = "davranbekrozmetov2@gmail.com";
-
-      if (!messageTextarea || !userNameInput || !userEmailInput) {
-        console.error("Could not find one or more required elements.");
-        return;
-      }
-
-      if (!userNameInput.value.trim()) {
-        userNameInput.style.border = "2px solid red";
-        toast.error("Please enter your name.");
-        return;
+    readData("games", id).then((res) => {
+      if (res !== undefined) {
+        toast.error("Game already uploaded");
       } else {
-        userNameInput.style.border = "none";
-      }
+        FbAdd("games", id, {
+          gameId: id,
+          gameName: name,
+          dateUploaded: date,
+          author: author,
+          likes: 0,
+          status: "active",
+          likeList: [],
+        }).then((result) => {
+          if (result.status === 200) {
+            FbAdd("users", author, {
+              role: userData.role,
+              uid: userData.uid,
+              scratchPassword: userData.scratchPassword,
+              stars: userData.stars + 1,
+              name: userData.name,
+              scratchUserName: userData.scratchUserName,
+              course: userData.course,
+              password: userData.password,
+            });
+            toast.success("Game Submitted!");
 
-      if (!messageTextarea.value.trim()) {
-        messageTextarea.style.border = "2px solid red";
-        toast.error("Please enter your message.");
-        return;
-      } else {
-        messageTextarea.style.border = "none";
-      }
-
-      emailjs
-        .sendForm(
-          "service_v0sfv5v",
-          "template_twvpqhu",
-          form.current,
-          "QUM0EqjRVwbzq6EAc"
-        )
-        .then(
-          (result) => {
-            toast.success("Email sent!");
             setTimeout(() => {
               window.location.reload(false);
             }, 3000);
-          },
-          (error) => {
-            toast.error(
-              "Oops! Something went wrong! Please notify me via my other social media"
-            );
+          } else {
+            toast.error("Oops! Something went wrong! Contact Teacher David");
           }
-        );
-    }
+        });
+      }
+    });
   };
 
   return (
@@ -64,18 +72,43 @@ export const SubmitGame = () => {
       <ToastContainer></ToastContainer>
       <h2>Submit Your Scratch Game</h2>
 
-      <form ref={form} onSubmit={sendEmail} className="form-send-email">
+      <form onSubmit={sendEmail} className="form-send-email">
         <div className="form-input">
           <div className="row-1">
-            <label htmlFor="user_name" className="text-input">
-              Name
-            </label>
-            <input type="text" name="user_name" />
+            <label className="text-input">Name of the game</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
           </div>
 
           <div className="row-2">
-            <label htmlFor="message">Message</label>
-            <textarea name="message" id="message" cols={30} rows={10} />
+            <label htmlFor="message">
+              Enter the game Id (for example: 915475959)
+            </label>
+            <input
+              type="text"
+              value={id}
+              onChange={(e) => {
+                setId(e.target.value);
+                if (e.target.value.includes("/projects/")) {
+                  setId(e.target.value.split("/projects/")[1].substring(0, 9));
+                } else {
+                  setId(e.target.value);
+                }
+              }}
+              onPaste={(e) => {
+                setId(e.target.value);
+                if (e.target.value.includes("/projects/")) {
+                  setId(e.target.value.split("/projects/")[1].substring(0, 9));
+                } else {
+                  setId(e.target.value);
+                }
+              }}
+            />
           </div>
         </div>
 

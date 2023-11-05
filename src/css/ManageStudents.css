@@ -1,0 +1,67 @@
+.students-container {
+  width: 90%;
+  margin: auto;
+  height: max-content;
+}
+.student-container {
+  margin: 6px;
+  background-color: #eee;
+  padding: 7px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.5fr 1fr 1fr;
+  font-size: 1.2em;
+  border-radius: 5px;
+}
+.table-head {
+  background-color: transparent;
+  margin: auto;
+}
+.table-head strong {
+  font-weight: 200;
+  margin-left: 1em;
+}
+.show-passwords-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.4em;
+  margin: auto;
+}
+.show-password-icon {
+  width: 1.2em;
+  height: 1.2em;
+  padding: 0.2em;
+  border-radius: 0.25em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #b32f2f;
+  background: linear-gradient(
+    135deg,
+    #b32f2f 0%,
+    #b32f2f 51%,
+    #a61c1c 51%,
+    #a61c1c 100%
+  );
+  color: white;
+}
+
+.delete-button {
+  color: red;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.edit-password-button {
+  font-size: 1.6em;
+  cursor: pointer;
+  margin-right: 0.2em;
+}
+.no-students {
+  display: block;
+  width: 100%;
+  color: #777;
+  margin: auto;
+  text-align: center;
+}

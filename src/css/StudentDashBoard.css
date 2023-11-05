@@ -1,0 +1,26 @@
+.student-dashboard-container {
+  min-height: 79vh;
+  width: 90vw;
+  margin: auto;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 5fr 1.5fr;
+}
+.header {
+  text-align: center;
+}
+.scratch-account-container {
+  background-color: rgba(255, 249, 222, 1);
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5em;
+  text-align: left;
+  height: 50%;
+  border: solid 1px #ccc;
+  margin: auto;
+}
+.scratch-account-container strong {
+  margin: auto;
+}

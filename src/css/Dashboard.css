@@ -1,0 +1,63 @@
+.dashboard-container {
+  min-height: 80vh;
+  display: flex;
+  width: 80vw;
+  margin: auto;
+}
+
+.dashboard-bar a {
+  font-size: 1.2em;
+  line-height: 2em;
+}
+.dashboard-content {
+  width: 100%;
+  position: relative;
+}
+h2 {
+  margin: 1em;
+}
+.div-grid {
+  display: grid;
+  grid-template-columns: 3fr 5fr 1fr;
+  position: relative;
+}
+
+.div-form {
+  display: grid;
+  gap: 0;
+  padding: 0 1em;
+  height: 60vh;
+}
+.div-form label {
+  line-height: 1em;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #072c47;
+}
+.div-form input,
+select {
+  border: solid 1px #072c47;
+  border-radius: 0.4em;
+  color: #072c47;
+  outline: 0;
+  font-weight: 700;
+  padding-left: 0.5em;
+  cursor: pointer;
+}
+.btn-create {
+  width: 6vw;
+  height: 3em;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  border: none;
+  padding: 0.4em;
+  color: #fcfcfc;
+  font-weight: 700;
+  border-radius: 0.2em;
+  font-size: 1em;
+  cursor: pointer;
+  background-color: #00ab2b;
+  position: absolute;
+  bottom: 0;
+  right: 4em;
+}
