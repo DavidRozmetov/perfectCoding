@@ -1,12 +1,27 @@
+.page-container-full-screen {
+  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100000;
+}
 .code-editor-container {
   display: grid;
   grid-template-columns: 7fr 3fr;
 }
+
 .output-container {
-  height: 100%;
+  height: 75vh;
   font-size: 1.2em;
   font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  overflow-wrap: break-word; /* Use 'overflow-wrap' for word wrapping */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-wrap: break-word;
 }
+
 .output-container-dark {
   background-color: #1e1e1e;
   color: white;
@@ -15,6 +30,22 @@
 .output-container-light {
   color: #1e1e1e;
   background-color: white;
+}
+
+.output-container-full-screen {
+  height: 91vh;
+}
+
+.output-text {
+  width: 95%;
+  height: 85%;
+  line-height: 1.6em;
+  font-size: 1.2em;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Enables wrapping of long lines */
+  word-wrap: break-word; /* Alternative property for older browsers */
+  overflow-wrap: break-word;
+  margin: auto;
 }
 
 .editor-head {
@@ -60,6 +91,10 @@
   cursor: pointer;
 }
 
+.btn-full-screen {
+  font-size: 1.6em;
+  margin: auto;
+}
 .btn-mode-dark {
   color: white;
 }

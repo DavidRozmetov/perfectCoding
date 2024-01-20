@@ -21,6 +21,7 @@ import { EditStudent } from "./components/EditStudent";
 
 import { StudentDashBoard } from "./components/StudentDashboard";
 import { authentication } from "./firebase/Auth";
+import { MemoryGame } from "./components/challanges/MemoryGame";
 function App() {
   const [user, setUser] = useState();
   const [uid, setUid] = useState();
@@ -56,6 +57,7 @@ function App() {
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/python" element={<Python />} />
           <Route path="/code-editor" element={<CodeEditor />} />
+          <Route path="/challanges/memory-game/*" element={<MemoryGame />} />
           <Route path="/student-board" element={<StudentDashBoard />} />
         </Routes>
 
