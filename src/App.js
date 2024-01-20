@@ -10,7 +10,7 @@ import { Footer } from "./components/Footer";
 import { FloatingNavbar } from "./components/FloatingNavbar";
 import { Students } from "./components/Students";
 import { Login } from "./components/Login";
-
+import { CodeEditor } from "./components/CodeEditor";
 import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Dashboard } from "./components/Dashboard";
@@ -55,6 +55,7 @@ function App() {
           <Route path="/dashboard/students" element={<ManageStudents />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/python" element={<Python />} />
+          <Route path="/code-editor" element={<CodeEditor />} />
           <Route path="/student-board" element={<StudentDashBoard />} />
         </Routes>
 
