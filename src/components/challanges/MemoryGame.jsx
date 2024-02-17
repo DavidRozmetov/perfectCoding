@@ -3,20 +3,34 @@ import MonacoEditor from "react-monaco-editor";
 import ProgressBar from "@ramonak/react-progress-bar";
 import "../../css/MemoryChallange.css";
 import { IoSunnyOutline } from "react-icons/io5";
-import axios from "axios";
+import { CiCircleCheck } from "react-icons/ci";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { AiOutlineFullscreenExit } from "react-icons/ai";
 import { FaEye } from "react-icons/fa";
-import codeScreenShot from "../../assets/img/Screenshot 2024-01-20 at 22.44.39.png";
+
+import { MdNavigateNext } from "react-icons/md";
 import Levenshtein from "levenshtein";
+
+import { challangeCodes } from "./data/common_data";
+import { onAuthStateChanged } from "firebase/auth";
+import { FbAdd, readData, updateData } from "../../firebase/FireStore";
+import { ToastContainer, toast } from "react-toastify";
+import { Link, useParams } from "react-router-dom";
+
 export const MemoryGame = () => {
   const [code, setCode] = useState("");
 
   const [isDarkMode, setisDarkMode] = useState(true);
-  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(true);
   const [similarity, setSimilarity] = useState(0);
   const [timer, setTimer] = useState(10);
   const [showImage, setShowImage] = useState(false);
+
+  // const [questionIndex, setQuestionIndex] = useState(3);
+  // const questionIndex = useParams()
+
+  const p = useParams();
+  // const [peeks, setPeeks] = useState(0);
   const options = {
     selectOnLineNumbers: true,
     automaticLayout: true,
@@ -26,23 +40,90 @@ export const MemoryGame = () => {
   const changeMode = () => {
     setisDarkMode(!isDarkMode);
   };
-  const handleEditorChange = (newCode, e) => {
-    setCode(newCode);
-    calculateSimilarity(newCode);
+
+  const calculateSimilarity = async () => {
+    const cleanedStudentCode = code.replace(/\s/g, "");
+
+    const cleanedExpectedCode = (
+      challangeCodes[questionIndex].expectedCode + ""
+    ).replace(/\s/g, "");
+
+    // Calculate Levenshtein distance
+    const distance = new Levenshtein(cleanedStudentCode, cleanedExpectedCode);
+
+    // Calculate similarity as a percentage
+    const maxLength = Math.max(
+      cleanedStudentCode.length,
+      cleanedExpectedCode.length
+    );
+    const similarityValue = 100 * (1 - distance / maxLength);
+
+    setSimilarity(similarityValue.toFixed(2));
+
+    if (similarityValue > 95) {
+      let history = localStorage.getItem("history") || "";
+
+      let currentScore = localStorage.getItem("score")
+        ? localStorage.getItem("score")
+        : 0;
+
+      // readData("MemoryGame", uid).then((res) => {
+      //   // if (res.status !== "400" && res?.message?.progress) {
+      //   //   currentProgress = res?.message?.progress;
+      //   // }
+      //   // if (res.status !== "400" && res?.message?.progress) {
+      //   //   currentScore = res?.message?.score;
+      //   // }
+      //   console.log(res);
+      // });
+
+      let newScore = 0;
+      const peeks = parseInt(localStorage.getItem("peeks"));
+      if (peeks === 0) {
+        newScore = 50;
+      } else if (peeks === 1) {
+        newScore = 25;
+      } else if (peeks === 2) {
+        newScore = 15;
+      } else if (peeks === 3) {
+        newScore = 10;
+      } else if (peeks === 4) {
+        newScore = 5;
+      } else if (peeks === 5) {
+        newScore = 3;
+      } else if (peeks === 6) {
+        newScore = 2;
+      } else {
+        newScore = 1;
+      }
+
+      if (!history.split(",").includes(questionIndex + "")) {
+        localStorage.setItem("score", parseInt(currentScore) + newScore);
+        toast.success(
+          `Congratulations! You have won ${newScore} points! (${peeks} peeks)`
+        );
+        history = history + questionIndex + ",";
+        console.log(history.split(",").includes(questionIndex + ""));
+        localStorage.setItem("history", history);
+      } else {
+        toast.warn(`Point Already earned from this question!`);
+      }
+    }
   };
 
-  const expectedCode = `numbers = [1, 2, 3, 4, 5]
-    for num in numbers:
-      print(num ** 2)`;
+  const questionIndex = p.questionIndex;
+  const handleEditorChange = (newCode) => {
+    setCode(newCode);
+  };
 
   const handleFullScreen = () => {
     setIsFullScreen(!isFullScreen);
   };
 
   const showImageHandler = () => {
-    let t = 10;
     setTimer(10);
     setShowImage(true);
+
     var countdown = setInterval(() => {
       setTimer((prevTimer) => {
         if (prevTimer === 1) {
@@ -54,25 +135,10 @@ export const MemoryGame = () => {
     }, 1000);
   };
 
-  const calculateSimilarity = (studentCode) => {
-    // Remove white spaces from both codes
-    const cleanedStudentCode = studentCode.replace(/\s/g, "");
-    const cleanedExpectedCode = expectedCode.replace(/\s/g, "");
-
-    // Calculate Levenshtein distance
-    const distance = new Levenshtein(cleanedStudentCode, cleanedExpectedCode);
-
-    // Calculate similarity as a percentage
-    const maxLength = Math.max(
-      cleanedStudentCode.length,
-      cleanedExpectedCode.length
-    );
-    const similarityValue = 100 * (1 - distance / maxLength);
-    console.log("student code: ", code);
-    console.log("expected code: ", cleanedExpectedCode);
-    console.log("similarityValue: ", similarityValue);
-    setSimilarity(similarityValue.toFixed(2));
-  };
+  useEffect(() => {
+    localStorage.setItem("peeks", 0);
+    showImageHandler();
+  }, []);
 
   const getColorFromPercentage = (percentage) => {
     // Ensure the percentage is within the range [0, 100]
@@ -130,14 +196,38 @@ export const MemoryGame = () => {
     return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
   };
 
+  const handleNextQuestion = () => {
+    // setQuestionIndex((prevQuestionIndex) => {
+    //   const newIndex = prevQuestionIndex;
+    //   return newIndex;
+    // });
+
+    setCode("");
+    setSimilarity(0.0);
+    showImageHandler();
+  };
+
+  // const [user, setUser] = useState();
+  // const [uid, setUid] = useState();
+
+  // onAuthStateChanged(authentication, (u) => {
+  //   if (u) {
+  //     setUid(u.uid);
+  //     setUser(u);
+  //   } else {
+  //   }
+  // });
+
   return (
     <div
       className={isFullScreen ? "page-container-full-screen" : "page-container"}
     >
       {" "}
+      <ToastContainer></ToastContainer>
       <div className="div-progress-bar">
         <ProgressBar
-          completed={100}
+          completed={!isNaN(similarity) ? similarity : 0}
+          maxCompleted={100}
           customLabel=""
           className="progress-bar"
           barContainerClassName="progress-bar-container"
@@ -149,21 +239,50 @@ export const MemoryGame = () => {
       <div
         className={`editor-head editor-head-${isDarkMode ? "dark" : "light"}`}
       >
-        <h2>Memory Game {similarity}</h2>
+        <h2>
+          {challangeCodes[questionIndex].id}. Memory Game {similarity}
+        </h2>
         <div className="btn-container">
           <button
-            disabled={showImage}
-            className={`btn-run btn-look btn-look-${
+            className={`btn-run btn-check btn-check-${
               isDarkMode ? "dark" : "light"
             }-mode`}
-            onClick={showImageHandler}
+            onClick={calculateSimilarity}
           >
-            <span>look</span>
-            <FaEye />
+            <span>Check</span>
+            <CiCircleCheck />
           </button>
+          {similarity < 100 && !showImage && (
+            <button
+              className={`btn-run btn-look btn-look-${
+                isDarkMode ? "dark" : "light"
+              }-mode`}
+              onClick={() => {
+                const i = parseInt(localStorage.getItem("peeks")) + 1;
+                localStorage.setItem("peeks", i);
+                showImageHandler();
+              }}
+            >
+              <span>{`look (${5 - localStorage.getItem("peeks")})`}</span>
+              <FaEye />
+            </button>
+          )}
+
+          {similarity > 95 && !showImage && (
+            <Link
+              to={`/challanges/memory-game/${parseInt(questionIndex) + 1}`}
+              className={`btn-run btn-look btn-look-${
+                isDarkMode ? "dark" : "light"
+              }-mode`}
+              onClick={handleNextQuestion}
+            >
+              <span>Next</span>
+              <MdNavigateNext />
+            </Link>
+          )}
         </div>
-        <div className="btn-container">
-          <div className="btn-container">
+        <div className="secondary-btn-container">
+          <div className="secondary-btn-container">
             <button
               className={`btn-mode ${
                 isDarkMode ? "btn-mode-dark" : "btn-mode-light"
@@ -189,7 +308,7 @@ export const MemoryGame = () => {
         <div>
           <MonacoEditor
             width="100%"
-            height={isFullScreen ? "91vh" : "74vh"}
+            height={isFullScreen ? "91vh" : "76vh"}
             language="python"
             theme={isDarkMode ? "vs-dark" : "vs-light"}
             value={code}
@@ -198,15 +317,21 @@ export const MemoryGame = () => {
           />
         </div>
         <div
+          height={isFullScreen ? "91vh" : "80vh"}
           className={`output-container output-container-${
             isDarkMode ? "dark" : "light"
           } ${isFullScreen ? "output-container-full-screen" : ""}`}
         >
           <img
             className={`image image-${showImage ? "visible" : "hidden"}`}
-            src={codeScreenShot}
+            src={challangeCodes[questionIndex].image}
             alt="code screenshot"
           />
+          {/* <div>
+            <p>question index: {questionIndex}</p>
+            <p>expected code: {challangeCodes[questionIndex].expectedCode}</p>
+            <p> code: {code}</p>
+          </div> */}
         </div>
       </div>
     </div>

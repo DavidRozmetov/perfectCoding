@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MonacoEditor from "react-monaco-editor";
 import "../css/CodeEditor.css";
 import { FaPlay } from "react-icons/fa";
@@ -6,7 +6,7 @@ import { IoSunnyOutline } from "react-icons/io5";
 import axios from "axios";
 import { BsArrowsFullscreen } from "react-icons/bs";
 import { AiOutlineFullscreenExit } from "react-icons/ai";
-
+import { RxReset } from "react-icons/rx";
 export const CodeEditor = () => {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
@@ -20,17 +20,23 @@ export const CodeEditor = () => {
     fontSize: 24,
   };
 
+  useEffect(() => {
+    setCode(localStorage.getItem("code"));
+  }, []);
+
   const changeMode = () => {
     setisDarkMode(!isDarkMode);
   };
   const handleEditorChange = (newCode, e) => {
+    localStorage.setItem("code", newCode);
+    console.log(newCode);
     setCode(newCode);
   };
 
   const handleRunCode = async () => {
     // You can implement code execution logic here
     // For simplicity, let's just log the code and set some output
-    console.log("code: ", code);
+
     try {
       const response = await axios.post(
         "http://localhost:5001/run-python-code",
@@ -41,11 +47,15 @@ export const CodeEditor = () => {
         setOutput(response?.data?.error);
       } else {
         setOutput(response.data.output);
-        console.log(response);
       }
     } catch (error) {
       setOutput("Error running Python code:", error);
     }
+  };
+
+  const handleResetCode = () => {
+    localStorage.setItem("code", "");
+    setCode("");
   };
 
   const handleFullScreen = () => {
@@ -75,9 +85,18 @@ export const CodeEditor = () => {
             <span>Run</span>
             <FaPlay />
           </button>
+          <button
+            onClick={handleResetCode}
+            disabled={running}
+            className={`btn-run btn-reset btn-reset-${
+              isDarkMode ? "dark" : "light"
+            }-mode`}
+          >
+            <RxReset />
+          </button>
         </div>
-        <div className="btn-container">
-          <div className="btn-container">
+        <div className="secondary-btn-container">
+          <div className="secondary-btn-container">
             <button
               className={`btn-mode ${
                 isDarkMode ? "btn-mode-dark" : "btn-mode-light"

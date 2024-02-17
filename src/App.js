@@ -57,7 +57,10 @@ function App() {
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/python" element={<Python />} />
           <Route path="/code-editor" element={<CodeEditor />} />
-          <Route path="/challanges/memory-game/*" element={<MemoryGame />} />
+          <Route
+            path="/challenges/memory-game/:questionIndex"
+            element={<MemoryGame />}
+          />
           <Route path="/student-board" element={<StudentDashBoard />} />
         </Routes>
 

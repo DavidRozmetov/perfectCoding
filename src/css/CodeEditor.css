@@ -57,19 +57,31 @@
 }
 
 .btn-container {
+  display: flex;
+  width: max-content;
   margin: auto;
+  justify-content: center;
+  gap: 1em;
+  vertical-align: middle;
+}
+
+.secondary-btn-container {
+  width: max-content;
+  margin: auto;
+  display: flex;
+  gap: 2em;
 }
 .btn-run {
   background-color: #3bc687;
   color: white;
-  width: 7em;
+
   height: 3.6em;
   border: none;
   border-radius: 0.5em;
   display: flex;
   justify-content: center;
   gap: 0.5em;
-  margin: auto;
+
   cursor: pointer;
 }
 .btn-run:hover {
@@ -84,6 +96,28 @@
   font-size: 1.2em;
   font-weight: bold;
 }
+
+.btn-reset,
+.btn-reset:active {
+  background-color: transparent;
+}
+
+.btn-reset * {
+  font-size: 2em;
+}
+
+.btn-reset-dark-mode {
+  color: white;
+}
+.btn-reset-dark-mode:hover {
+  color: #ddd;
+  background-color: transparent;
+}
+
+.btn-reset-dark-mode * {
+  height: 100%;
+}
+
 .btn-mode {
   background-color: transparent;
   border: none;

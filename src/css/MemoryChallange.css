@@ -33,6 +33,12 @@
 
 .btn-look-dark-mode {
   color: white;
+  border: solid #aaa 0.1px;
+}
+
+.btn-check {
+  background-color: green;
+  color: white;
 }
 
 .div-progress-bar {
